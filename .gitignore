@@ -1,5 +1,6 @@
 # Visual Studio Code Folder and Contents
-.vscode/*
+/.vscode
+/.vscode/*
 
 # Local History for Visual Studio Code
 .history/
