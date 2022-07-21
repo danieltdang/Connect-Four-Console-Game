@@ -13,8 +13,8 @@ private:
         int wins = 0;
     };
     Player players[2];
-    int rows = 0;
-    int columns = 0;
+    int rows = 6;
+    int columns = 7;
     string cells;
 public:
     // Mutator Functions
@@ -45,10 +45,10 @@ bool restart(Board& board);
 int main() {
     Board board;
     string playerChoice;
-    int isDigit,
-        full,
+    int full,
         win;
-    bool again = true;
+    bool again = true,
+         isDigit = false;
 
     // Welcome message, starting with the board size
     cout << "Welcome to Connect 4!\n"
@@ -60,12 +60,6 @@ int main() {
         cout << "Select your board option (1-2): ";
         cin >> playerChoice;
         isDigit = isdigit(playerChoice[0]);
-    }
-
-    // If 1 is selected, set default rows and columns to 6 and 7 respectively
-    if (stoi(playerChoice) == 1) {
-        board.setRows(6);
-        board.setColumns(7);
     }
 
     // If 2 is selected, ask player for custom rows and columns value and sets them respectively
@@ -198,15 +192,21 @@ void displayBoard(Board& board) {
 void playerDrop(Board& board, int activePlayer) {
     // Column that player has selected
     int dropChoice;
+    bool isDigit = false;
+    string playerChoice;
 
     // Indicate the player's turn
     cout << "Player " << (activePlayer + 1) << "'s Turn\n";
 
     // Keeps asking player to select option if they enter invalid option
     do {
-        cout << "Select an option (1-" << board.getColumns() << "): ";
-        cin >> dropChoice;
-
+        // Makes sure that input is a digit before entering it in
+        while (!isDigit) {
+            cout << "Select an option (1-" << board.getColumns() << "): ";
+            cin >> playerChoice;
+            isDigit = isdigit(playerChoice[0]);
+        }
+        dropChoice = stoi(playerChoice);
         // If the top of the row of the dropChoice column has an ID, then make player enter another option
         while (board.getCell(dropChoice - 1) == board.getPlayer(0).id ||
                board.getCell(dropChoice - 1) == board.getPlayer(1).id)
@@ -245,9 +245,10 @@ int checkFourWin(Board& board, int activePlayer) {
     char ID = board.getPlayer(activePlayer).id;
     int win = 0;
 
+    // Loops through entire board
     for (int i = board.getRows(); i >= 1; i--) {
         for (int j = board.getColumns(); j >= 1; j--) {
-
+            // Checks for the four variations of winning in Connect Four
             if (board.getCell((i * board.getColumns()) + j) == ID         && //    X
                 board.getCell(((i-1) * board.getColumns()) + (j-1)) == ID && //   X
                 board.getCell(((i-2) * board.getColumns()) + (j-2)) == ID && //  X
@@ -309,18 +310,19 @@ void playerWin(Board& board, int activePlayer) {
 
 // Once game is over, ask player if they would like to restart their game
 bool restart(Board& board) {
-    int restart,
-        isDigit;
-    bool result;
+    int restart;
+    bool isDigit = false,
+         result;
     string playerChoice;
+
+    // Asks player if they would like to restart
+    cout << "Would you like to restart? \n"
+            "1) Yes \n"
+            "2) No \n";
 
     // Ensures player inputs a valid option that is a digit and within 1-2
     while (!isDigit || !(stoi(playerChoice) >= 1 && stoi(playerChoice) <= 2)) {
-        // Asks player if they would like to restart
-        cout << "Would you like to restart? \n"
-            "1) Yes \n"
-            "2) No \n"
-            "Select an option (1-2): ";
+        cout << "Select an option (1-2): ";
         cin >> playerChoice;
         isDigit = isdigit(playerChoice[0]);
     }
@@ -335,11 +337,6 @@ bool restart(Board& board) {
     else if (restart == 2) {
         cout << "Goodbye!";
         result = false;
-    }
-    // If player didn't choose a valid option, ask player to select an option again
-    else {
-        cout << "Select an option (1-2): ";
-        cin >> restart;
     }
 
     return result;
