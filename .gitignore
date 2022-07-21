@@ -1,12 +1,5 @@
 # Visual Studio Code Folder and Contents
-/.vscode
-/.vscode/*
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
+**/.vscode/
 
 # Executables
 *.exe
