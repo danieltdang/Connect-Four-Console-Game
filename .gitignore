@@ -1,7 +1,10 @@
-# Visual Studio Code Folder and Contents
+# Extra Folders and Contents
 **/.vscode/
+**/.idea/
+**/cmake-build-debug/
 
 # Executables
+*.txt
 *.exe
 *.out
 *.app

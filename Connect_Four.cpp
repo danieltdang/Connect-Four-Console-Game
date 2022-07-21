@@ -70,22 +70,20 @@ int main() {
 
     // If 2 is selected, ask player for custom rows and columns value and sets them respectively
     if (stoi(playerChoice) == 2) {
-        // Asks for custom row size and sets it after
-        cout << "Please enter the amount of rows: ";
-        cin >> playerChoice;
+        isDigit = false;
         // Keeps running if input is not a digit or more than 0, then sets the rows
         while (!isDigit || stoi(playerChoice) <= 0) {
+            // Asks for custom row size and sets it after
             cout << "Please enter the amount of rows: ";
             cin >> playerChoice;
             isDigit = isdigit(playerChoice[0]);
         }
         board.setRows(stoi(playerChoice));
 
-        // Asks for custom column size and sets it after
-        cout << "Please enter the amount of columns: ";
-        cin >> playerChoice;
+        isDigit = false;
         // Keeps running if input is not a digit or more than 0, then sets the columns
         while (!isDigit || stoi(playerChoice) <= 0) {
+            // Asks for custom column size and sets it after
             cout << "Please enter the amount of columns: ";
             cin >> playerChoice;
             isDigit = isdigit(playerChoice[0]);
@@ -104,17 +102,19 @@ int main() {
             cin >> playerChoice;
         }
 
-        // On Player 2, ensure they do not have the same character as Player 1
+        // Checks when it is Player 2's turn
         if (i == 1) {
-            while (playerChoice[0] == board.getPlayer(0).id) {
-                cout << "Player " << (i + 1) << " please enter a different character than Player " << i << ": ";
-                cin >> playerChoice;
-            }
             // Checks to ensure only 1 character is entered
             while (playerChoice.length() != 1) {
-                cout << "Player " << (i + 1) << " please enter only one character: ";
+                cout << "Player 2 please enter only one character: ";
                 cin >> playerChoice;
-        }
+            }
+            
+            // Checks to ensure they do not have the same character as Player 1
+            while (playerChoice[0] == board.getPlayer(0).id) {
+                cout << "Player 2 please enter a different character than Player 1: ";
+                cin >> playerChoice;
+            }
         }
 
         // Sets appropriate player name & id and clears the string
@@ -309,15 +309,22 @@ void playerWin(Board& board, int activePlayer) {
 
 // Once game is over, ask player if they would like to restart their game
 bool restart(Board& board) {
-    int restart;
+    int restart,
+        isDigit;
     bool result;
+    string playerChoice;
 
-    // Asks player if they would like to restart
-    cout << "Would you like to restart? \n"
+    // Ensures player inputs a valid option that is a digit and within 1-2
+    while (!isDigit || !(stoi(playerChoice) >= 1 && stoi(playerChoice) <= 2)) {
+        // Asks player if they would like to restart
+        cout << "Would you like to restart? \n"
             "1) Yes \n"
             "2) No \n"
             "Select an option (1-2): ";
-    cin >> restart;
+        cin >> playerChoice;
+        isDigit = isdigit(playerChoice[0]);
+    }
+    restart = stoi(playerChoice);
 
     // Option 1 will reset the board and return true
     if (restart == 1) {
