@@ -110,6 +110,11 @@ int main() {
                 cout << "Player " << (i + 1) << " please enter a different character than Player " << i << ": ";
                 cin >> playerChoice;
             }
+            // Checks to ensure only 1 character is entered
+            while (playerChoice.length() != 1) {
+                cout << "Player " << (i + 1) << " please enter only one character: ";
+                cin >> playerChoice;
+        }
         }
 
         // Sets appropriate player name & id and clears the string
@@ -195,7 +200,7 @@ void playerDrop(Board& board, int activePlayer) {
     int dropChoice;
 
     // Indicate the player's turn
-    cout << "Player " << activePlayer << "'s Turn\n";
+    cout << "Player " << (activePlayer + 1) << "'s Turn\n";
 
     // Keeps asking player to select option if they enter invalid option
     do {
