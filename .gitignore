@@ -1,10 +1,5 @@
-# Visual Studio Code Folder
+# Visual Studio Code Folder and Contents
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
