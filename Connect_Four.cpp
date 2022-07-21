@@ -252,31 +252,27 @@ int checkFourWin(Board& board, int activePlayer) {
             if (board.getCell((i * board.getColumns()) + j) == ID         && //    X
                 board.getCell(((i-1) * board.getColumns()) + (j-1)) == ID && //   X
                 board.getCell(((i-2) * board.getColumns()) + (j-2)) == ID && //  X
-                board.getCell(((i-3) * board.getColumns()) + (j-3)) == ID)   // X
-            {
-                win = 1;
-            }
-
-            if (board.getCell((i * board.getColumns()) + j) == ID         && // X
+                board.getCell(((i-3) * board.getColumns()) + (j-3)) == ID || // X
+                
+                board.getCell((i * board.getColumns()) + j) == ID         && // X
                 board.getCell(((i-1) * board.getColumns()) + j) == ID     && // X
                 board.getCell(((i-2) * board.getColumns()) + j) == ID     && // X
-                board.getCell(((i-3) * board.getColumns()) + j) == ID)       // X
-            {
-                win = 1;
-            }
-
-            if (board.getCell((i * board.getColumns()) + j) == ID         && // X
+                board.getCell(((i-3) * board.getColumns()) + j) == ID     || // X
+                
+                board.getCell((i * board.getColumns()) + j) == ID         && // X
                 board.getCell(((i-1) * board.getColumns()) + (j+1)) == ID && //  X
                 board.getCell(((i-2) * board.getColumns()) + (j+2)) == ID && //   X
-                board.getCell(((i-3) * board.getColumns()) + (j+3)) == ID)   //    X
-            {
-                win = 1;
-            }
-
-            if (board.getCell((i * board.getColumns()) + j) == ID         && // X X X X
-                board.getCell((i * board.getColumns()) + (j+1)) == ID     && //
+                board.getCell(((i-3) * board.getColumns()) + (j+3)) == ID || //    X
+                
+                board.getCell((i * board.getColumns()) + j) == ID         && // X X X X
+                board.getCell((i * board.getColumns()) + (j+1)) == ID     && // left to right
                 board.getCell((i * board.getColumns()) + (j+2)) == ID     && //
-                board.getCell((i * board.getColumns()) + (j+3)) == ID)       //
+                board.getCell((i * board.getColumns()) + (j+3)) == ID     ||
+                
+                board.getCell((i * board.getColumns()) + j) == ID         && // X X X X
+                board.getCell((i * board.getColumns()) + (j-1)) == ID     && // right to left
+                board.getCell((i * board.getColumns()) + (j-2)) == ID     && //
+                board.getCell((i * board.getColumns()) + (j-3)) == ID)       //
             {
                 win = 1;
             }
